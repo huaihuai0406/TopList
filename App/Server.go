@@ -9,8 +9,8 @@ import (
 	"regexp"
 	"syscall"
 
-	"../Common"
-	"../Config"
+	"TopList/Common"
+	"TopList/Config"
 )
 
 func GetTypeInfo(w http.ResponseWriter, r *http.Request) {
@@ -56,10 +56,11 @@ func SyncMysqlCfg() {
 
 func main() {
 	SyncMysqlCfg()
-	http.HandleFunc("/GetTypeInfo", GetTypeInfo) // 设置访问的路由
-	http.HandleFunc("/GetType", GetType)         // 设置访问的路由
-	http.HandleFunc("/GetConfig", GetConfig)     // 设置访问的路由
-	err := http.ListenAndServe(":9090", nil)     // 设置监听的端口
+	http.HandleFunc("/GetTypeInfo", GetTypeInfo)            // 设置访问的路由
+	http.HandleFunc("/GetType", GetType)                    // 设置访问的路由
+	http.HandleFunc("/GetConfig", GetConfig)                // 设置访问的路由
+	http.Handle("/", http.FileServer(http.Dir("../Html/"))) // 设置访问的路由
+	err := http.ListenAndServe(":8000", nil)                // 设置监听的端口
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}

@@ -44,13 +44,13 @@ function setBar(object) {
     var isAllShow = localStorage.getItem("isAllShow")
     for (var i in object) {
         if (i > 13 && (isAllShow == "no" || isAllShow == undefined)) {
-            code += '<li role="presentation"><a style="display: none" hreflang="'+object.length+'" rel="'+i+'" type="'+object[i].id+'" onclick="getOwnInfo(this)" href="#'+object[i].id+'" aria-controls="profile" role="tab" data-toggle="tab">'+object[i].title+'</a></li>';
+            code += '<li role="presentation"><a style="display: none" hreflang="'+object.length+'" rel="'+i+'" type="'+object[i].id+'" onclick="getOwnInfo(this)" href="#'+object[i].id+'" aria-controls="profile" role="tab" data-toggle="tab">'+object[i].name+'</a></li>';
         } else {
             $("#iconAllShow").attr("class","glyphicon glyphicon-minus")
             if (i == 0) {
-                code += '<li class="active"  role="presentation"><a hreflang="'+object.length+'" rel="'+i+'" type="'+object[i].id+'" onclick="getOwnInfo(this)" href="#'+object[i].id+'" aria-controls="profile" role="tab" data-toggle="tab">'+object[i].title+'</a></li>';
+                code += '<li class="active"  role="presentation"><a hreflang="'+object.length+'" rel="'+i+'" type="'+object[i].id+'" onclick="getOwnInfo(this)" href="#'+object[i].id+'" aria-controls="profile" role="tab" data-toggle="tab">'+object[i].name+'</a></li>';
             } else {
-                code += '<li  role="presentation"><a hreflang="'+object.length+'" rel="'+i+'" type="'+object[i].id+'" onclick="getOwnInfo(this)" href="#'+object[i].id+'" aria-controls="profile" role="tab" data-toggle="tab">'+object[i].title+'</a></li>';
+                code += '<li  role="presentation"><a hreflang="'+object.length+'" rel="'+i+'" type="'+object[i].id+'" onclick="getOwnInfo(this)" href="#'+object[i].id+'" aria-controls="profile" role="tab" data-toggle="tab">'+object[i].name+'</a></li>';
             }
 
 
@@ -141,7 +141,7 @@ function getListInfo(id) {
       <input type="text" class="form-control" id="vWord" placeholder="比如还希望博主抓取其他网站，数据更新频率，用户体验啥的，欢迎留言">
     </div>
   </div>
- 
+
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <button onclick="addVUrl()" id="vButton" class="btn btn-default">提交</button>

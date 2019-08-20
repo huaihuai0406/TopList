@@ -1,5 +1,5 @@
-const ServerIp = 'https://www.printf520.com:8080'
-const ImgServerIp = 'https://www.printf520.com'
+const ServerIp = 'http://home.hhdaisy.com:8000'
+const ImgServerIp = 'http://home.hhdaisy.com:8000'
 //
 // const ServerIp = 'http://127.0.0.1:8080'
 // const ImgServerIp = 'http://www.printf520.com'

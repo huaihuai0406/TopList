@@ -1,16 +1,17 @@
 package Common
 
 import (
-	"../Config"
+	"TopList/Config"
 	"database/sql"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
 	"log"
 	"math"
 	"strconv"
 	"strings"
 	"sync"
 	"time"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 var DbPool *sync.Pool
@@ -37,7 +38,11 @@ func init() {
 	MySql := MySql{}
 	MySql.source = Config.MySql().Source
 	MySql.driver = Config.MySql().Driver
+	fmt.Println(Config.MySql().Source)
 	db, err := sql.Open(MySql.driver, MySql.source)
+	if err != nil {
+		fmt.Println(err)
+	}
 	db.SetMaxOpenConns(2000)             // 最大链接
 	db.SetMaxIdleConns(1000)             // 空闲连接，也就是连接池里面的数量
 	db.SetConnMaxLifetime(7 * time.Hour) // 设置最大生成周期是7个小时
@@ -209,6 +214,7 @@ func (MySql MySql) Pagination(Page int, Limit int) map[string]interface{} {
 	// 计算偏移量
 	setOff := (Page - 1) * Limit
 	queryStr := MySql.fields + MySql.whereStr + MySql.orderBy + " limit " + strconv.Itoa(setOff) + "," + strconv.Itoa(Limit)
+	fmt.Println(queryStr)
 	rows, err := MySql.conn.Query(queryStr)
 	defer rows.Close()
 	MySql.checkErr(err)
@@ -244,6 +250,7 @@ func (MySql MySql) Pagination(Page int, Limit int) map[string]interface{} {
 
 func (MySql MySql) QueryAll() []map[string]string {
 	var queryStr = MySql.fields + MySql.whereStr + MySql.orderBy + MySql.limitNumber
+	fmt.Println(queryStr)
 	rows, err := MySql.conn.Query(queryStr)
 	defer rows.Close()
 	MySql.checkErr(err)
@@ -274,6 +281,7 @@ func (MySql MySql) QueryAll() []map[string]string {
 }
 
 func (MySql MySql) ExecSql(queryStr string) []map[string]string {
+	fmt.Println(queryStr)
 	rows, err := MySql.conn.Query(queryStr)
 	defer rows.Close()
 	MySql.checkErr(err)
@@ -308,6 +316,7 @@ func (MySql MySql) ExecSql(queryStr string) []map[string]string {
 */
 func (MySql MySql) QueryRow() map[string]string {
 	var queryStr = MySql.fields + MySql.whereStr + MySql.orderBy + MySql.limitNumber
+	fmt.Println(queryStr)
 	result, err := MySql.conn.Query(queryStr)
 	defer result.Close()
 	MySql.checkErr(err)
